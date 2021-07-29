@@ -14,4 +14,5 @@
 .cxx
 local.properties
 
-app/src/main/res/data
+app/src/main/res/raw/customers
+app/src/main/res/raw/user*
