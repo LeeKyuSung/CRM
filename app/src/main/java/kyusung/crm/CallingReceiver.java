@@ -79,6 +79,7 @@ public class CallingReceiver extends BroadcastReceiver {
         // 주문 목록 검색
         String orderListString = "";
 
+        System.out.println("showCustomer : " + customer.getId());
         String filename = "user" + customer.getId();
         String str = "";
         boolean haveData = true;
@@ -97,7 +98,10 @@ public class CallingReceiver extends BroadcastReceiver {
             String[] inputList = str.split("\n");
             try {
                 // TODO 최근 주문건 골라내는 로직 필요
-                for (int i=inputList.length-4; i<inputList.length; i++) {
+                int startIndex = inputList.length-7;
+                if (startIndex < 0)
+                    startIndex = 0;
+                for (int i=startIndex; i<inputList.length; i++) {
                     Order order = new Order(inputList[i]);
                     String menu = order.getMenu();
                     String price = order.getPrice();
@@ -125,7 +129,8 @@ public class CallingReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle(tmp)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(tmp + "\n" + orderListString));
+//                .setStyle(new NotificationCompat.BigTextStyle().bigText(tmp + "\n" + orderListString));
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(orderListString));
 
         // 알림 표시
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
